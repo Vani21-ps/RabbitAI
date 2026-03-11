@@ -17,9 +17,10 @@ function App() {
 
       setMessage("Processing...");
 
-      const res = await axios.post(
-        "http://localhost:3001/api/upload",
-        formData
+    const res = await axios.post(
+  "https://rabbitai-backend.onrender.com/api/upload",
+  formData
+
       );
 
       setMessage("Success! Email sent.");
