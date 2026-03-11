@@ -3,7 +3,7 @@ const multer = require("multer");
 
 const parseService = require("../services/parseService");
 const aiService = require("../services/aiService");
-// const mailService = require("../services/mailService"); // temporarily disabled
+const mailService = require("../services/mailService"); // temporarily disabled
 
 const router = express.Router();
 
@@ -43,7 +43,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
     console.log("Process completed");
 
     // email disabled for now
-    // await mailService(email, summary);
+     await mailService(email, summary);
 
     res.json({
       success: true,
