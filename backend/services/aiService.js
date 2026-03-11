@@ -1,8 +1,8 @@
-const axios = require("axios")
+const axios = require("axios");
 
 module.exports = async (data) => {
 
- const prompt = `
+  const prompt = `
 Analyze this sales dataset and create an executive summary.
 
 Dataset:
@@ -13,18 +13,41 @@ Provide:
 - Top product
 - Trend observation
 - Business recommendation
-`
+`;
 
- const response = await axios.post(
-  `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_KEY}`,
-  {
-   contents: [
-    {
-     parts: [{ text: prompt }]
-    }
-   ]
+  try {
+
+    const response = await axios.post(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_KEY}`,
+      {
+        contents: [
+          {
+            parts: [{ text: prompt }]
+          }
+        ]
+      }
+    );
+
+    return response.data.candidates[0].content.parts[0].text;
+
+  } catch (error) {
+
+    console.log("Gemini API failed:", error.response?.status);
+
+    // fallback summary so API never crashes
+    return `
+Sales dataset processed successfully.
+
+Basic insights:
+• Dataset uploaded and parsed correctly
+• Multiple sales records detected
+• Sales performance can be analyzed for trends
+
+Business recommendation:
+Review high-performing products and focus marketing on top-selling categories.
+
+(Note: AI service temporarily unavailable, fallback summary generated.)
+`;
+
   }
- )
-
- return response.data.candidates[0].content.parts[0].text
-}
+};

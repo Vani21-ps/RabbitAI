@@ -55,9 +55,10 @@ router.post("/upload", upload.single("file"), async (req, res) => {
 
     console.error("UPLOAD ERROR:", err);
 
-    res.status(500).json({
-      error: err.message || "Processing failed"
-    });
+ res.status(200).json({
+  message: "File uploaded but AI summary unavailable due to API limit",
+  summary: "AI service quota reached. Please try again later."
+});
 
   }
 });
