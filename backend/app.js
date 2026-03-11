@@ -10,7 +10,7 @@ const uploadRoute = require("./routes/uploadRoute"); // 👈 IMPORT ROUTE
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: "*" }));
 app.use(helmet());
 app.use(express.json());
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs))
