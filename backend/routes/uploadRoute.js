@@ -3,34 +3,12 @@ const multer = require("multer");
 
 const parseService = require("../services/parseService");
 const aiService = require("../services/aiService");
-const mailService = require("../services/mailService");
+// const mailService = require("../services/mailService"); // temporarily disabled
 
 const router = express.Router();
 
 // store uploaded file
 const upload = multer({ dest: "uploads/" });
-
-/**
- * @swagger
- * /api/upload:
- *   post:
- *     summary: Upload sales data and generate AI summary
- *     requestBody:
- *       required: true
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               file:
- *                 type: string
- *                 format: binary
- *               email:
- *                 type: string
- *     responses:
- *       200:
- *         description: Summary generated and email sent
- */
 
 router.post("/upload", upload.single("file"), async (req, res) => {
   try {
@@ -62,15 +40,14 @@ router.post("/upload", upload.single("file"), async (req, res) => {
     console.log("Generating AI summary...");
     const summary = await aiService(parsedData);
 
-    // STEP 3: Send email
-    console.log("Sending email...");
-    await mailService(email, summary);
-
     console.log("Process completed");
+
+    // email disabled for now
+    // await mailService(email, summary);
 
     res.json({
       success: true,
-      message: "AI summary generated and email sent",
+      message: "AI summary generated successfully",
       summary
     });
 
