@@ -1,19 +1,18 @@
 require("dotenv").config();
-const swaggerUi = require("swagger-ui-express")
-const swaggerSpecs = require("./swagger")
+
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 
-const uploadRoute = require("./routes/uploadRoute"); // 👈 IMPORT ROUTE
+const uploadRoute = require("./routes/uploadRoute");
 
 const app = express();
 
 app.use(cors({ origin: "*" }));
 app.use(helmet());
 app.use(express.json());
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs))
+
 const limiter = rateLimit({
   windowMs: 60 * 1000,
   max: 20,

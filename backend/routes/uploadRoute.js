@@ -1,14 +1,13 @@
-const express = require("express")
-const multer = require("multer")
-const uploadroute = require("./routes/uploadroute");
-app.use("/api/upload", uploadroute);
-const parseService = require("../services/parseService")
-const aiService = require("../services/aiService")
-const mailService = require("../services/mailService")
+const express = require("express");
+const multer = require("multer");
 
-const router = express.Router()
+const parseService = require("../services/parseService");
+const aiService = require("../services/aiService");
+const mailService = require("../services/mailService");
 
-const upload = multer({ dest: "uploads/" })
+const router = express.Router();
+
+const upload = multer({ dest: "uploads/" });
 /**
  * @swagger
  * /api/upload:
