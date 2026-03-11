@@ -1,7 +1,7 @@
 const express = require("express")
 const multer = require("multer")
-const uploadRoute = require("./routes/uploadRoute");
-app.use("/api/upload", uploadRoute);
+const uploadroute = require("./routes/uploadroute");
+app.use("/api/upload", uploadroute);
 const parseService = require("../services/parseService")
 const aiService = require("../services/aiService")
 const mailService = require("../services/mailService")
